@@ -1,4 +1,4 @@
-package Uno;
+package Uno.Cards;
 
 public enum Color
 {

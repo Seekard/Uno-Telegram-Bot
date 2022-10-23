@@ -1,43 +1,50 @@
 package Uno;
 
+import Uno.Cards.BasicCard;
+import Uno.Cards.CardFactory;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 public class PlayerModel
 {
     private final String _name;
-    private HashMap<Card, Integer> _cards;
+    private final List<BasicCard> _cards;
 
     public PlayerModel(String name)
     {
         _name = name;
-        InitializeCards();
+        _cards = new ArrayList<>();
     }
 
     public String GetName()
     {
         return _name;
     }
-
-    private void InitializeCards()
+    public List<BasicCard> GetCards()
     {
-        _cards = new HashMap<Card, Integer>();
-        List<Card> allCardsInGame = CardFactory.GetAll();
-        for(Card card : allCardsInGame)
-            _cards.put(card, 0);
+        return Collections.unmodifiableList(_cards);
     }
 
-    public void AddCard(Card card)
+    public void AddCard(BasicCard card)
     {
-        int currentValue = _cards.get(card);
-        _cards.put(card, currentValue + 1);
+        _cards.add(card);
     }
 
-    public void RemoveCard(Card card) throws Exception
+    public void RemoveCard(BasicCard card) throws Exception
     {
-        int currentValue = _cards.get(card);
-        if (currentValue == 0)
-            throw new Exception("No such card in hand!");
-        _cards.put(card, currentValue + 1);
+        _cards.remove(card);
+    }
+
+    public boolean HasCard(BasicCard card)
+    {
+        return _cards.contains(card);
+    }
+
+    public int GetAmountOfCards()
+    {
+        return _cards.size();
     }
 }

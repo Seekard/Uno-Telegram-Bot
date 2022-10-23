@@ -1,11 +1,11 @@
-package Uno;
+package Uno.Cards;
 
-public class CardModel
+public class BasicCardModel
 {
     private final int _value;
     private final Color _color;
 
-    public CardModel(int value, Color color)
+    public BasicCardModel(int value, Color color)
     {
         _value = value;
         _color = color;
