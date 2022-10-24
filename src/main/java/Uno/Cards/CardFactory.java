@@ -1,5 +1,7 @@
 package Uno.Cards;
 
+import Uno.Matches.MatchActions;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Collections;
@@ -7,8 +9,8 @@ import java.util.List;
 
 public class CardFactory
 {
-    private HashSet<BasicCard> _availableCards;
-    public CardFactory()
+    private final HashSet<BasicCard> _availableCards;
+    public CardFactory(MatchActions matchActions)
     {
         _availableCards = InitializeAvailableCards();
     }
@@ -21,11 +23,9 @@ public class CardFactory
     {
         HashSet<BasicCard> cards = new HashSet<BasicCard>();
         ArrayList<BasicCard> basicCards = InitializeAvailableBasicCards();
-        ArrayList<BasicCard> actionCards = InitializeAvailableActionCards();
+//        ArrayList<BasicCard> actionCards = InitializeAvailableActionCards(matchActions);
 
         cards.addAll(basicCards);
-        cards.addAll(actionCards);
-
         return cards;
     }
 
@@ -43,20 +43,28 @@ public class CardFactory
         return basicCards;
     }
 
-    private ArrayList<BasicCard> InitializeAvailableActionCards()
+    private ArrayList<BasicCard> InitializeAvailableActionCards(MatchActions matchActions)
     {
         ArrayList<BasicCard> actionCards = new ArrayList<BasicCard>();
-        for (Color color: Color.values())
-        {
-            if (color == Color.Any)
-                continue;
-
-//            actionCards.add();
-        }
+//        for (Color color: Color.values())
+//        {
+//            if (color == Color.Any)
+//            {
+//                actionCards.add(new ActionCard(13, color, matchActions::Wild));
+//                actionCards.add(new ActionCard(14, color, matchActions::WildDrawFourCards));
+//                continue;
+//            }
+//
+//
+//            actionCards.add(new ActionCard(10, color, matchActions::DrawTwoCards));
+//            actionCards.add(new ActionCard(11, color, matchActions::Reverse));
+//            actionCards.add(new ActionCard(12, color, matchActions::Skip));
+//        }
         return actionCards;
     }
 
-    public BasicCard Get(int value, Color color) throws Exception {
+    public BasicCard Get(int value, Color color) throws Exception
+    {
         if (IsAvailableCard(value, color))
             return new BasicCard(value, color);
         throw new Exception("No such card in game!");

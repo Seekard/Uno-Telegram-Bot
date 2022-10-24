@@ -1,5 +1,10 @@
 package Uno.Cards;
 
+import Uno.Matches.Match;
+import Uno.Matches.MatchActions;
+import Uno.Matches.MoveOrder;
+import Uno.Parties.Party;
+import Uno.Parties.Player;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,14 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class CardFactoryTest
 {
     private CardFactory _cardFactory;
-    public CardFactoryTest()
+    public CardFactoryTest() throws Exception
     {
         Init();
     }
 
-    private void Init()
+    private void Init() throws Exception
     {
-        _cardFactory = new CardFactory();
+        Party party = new Party();
+        Player player1 = new Player("Player1");
+        Player player2 = new Player("Player2");
+        party.Add(player1);
+        party.Add(player2);
+        Match match = new Match(party);
+        MatchActions matchActions = new MatchActions(match);
+        _cardFactory = new CardFactory(matchActions);
     }
 
     // region Tests IsAvailable

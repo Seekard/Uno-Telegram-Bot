@@ -1,7 +1,7 @@
 package Uno.Matches;
 
-import Uno.Party;
-import Uno.Player;
+import Uno.Parties.Party;
+import Uno.Parties.Player;
 
 import java.util.List;
 
@@ -13,16 +13,16 @@ public class MoveOrder
     public MoveOrder(Party party)
     {
         _party = party;
-        _playerWhoseTurn = _party.GetAllPlayers().get(0);
+         _playerWhoseTurn = _party.GetAllPlayers().get(0);
     }
 
-    public Player GetNextPlayer(Player player, Direction turnDirection)
+    public Player GetNextPlayer()
     {
         List<Player> players = _party.GetInGamePlayers();
-        int indexOfCurrentPlayer = players.indexOf(player);
+        int indexOfCurrentPlayer = players.indexOf(_playerWhoseTurn);
         int indexOfNextPlayer = 0;
 
-        if (turnDirection == Direction.Clockwise)
+        if (_moveDirection == Direction.Clockwise)
             indexOfNextPlayer = (indexOfCurrentPlayer + 1 >= players.size()) ? 0 : indexOfCurrentPlayer + 1;
         else
             indexOfNextPlayer = (indexOfCurrentPlayer - 1 < 0) ? players.size() - 1 : indexOfCurrentPlayer - 1;
@@ -32,10 +32,10 @@ public class MoveOrder
 
     public void SwitchTurn()
     {
-        _playerWhoseTurn = GetNextPlayer(_playerWhoseTurn, _moveDirection);
+        _playerWhoseTurn = GetNextPlayer();
     }
 
-    public void SwitchMoveDirection() throws Exception
+    public void SwitchMoveDirection()
     {
         _moveDirection = Direction.GetOpposite(_moveDirection);
     }

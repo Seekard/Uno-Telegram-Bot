@@ -3,9 +3,13 @@ package Uno;
 import Uno.Cards.BasicCard;
 import Uno.Cards.CardFactory;
 import Uno.Cards.Color;
+import Uno.Matches.Match;
+import Uno.Matches.MatchActions;
+import Uno.Matches.MoveOrder;
+import Uno.Parties.Party;
+import Uno.Parties.Player;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,9 +19,9 @@ class PlayerTest
 {
     private Player _player;
     private CardFactory _cardFactory;
-    public PlayerTest()
+    public PlayerTest() throws Exception
     {
-        _cardFactory = new CardFactory();
+        _cardFactory = new CardFactory(new MatchActions(new Match(new Party())));
     }
 
     private void InitPlayerWithSomeCards() throws Exception
@@ -193,4 +197,5 @@ class PlayerTest
 
         assertEquals(expected, actual);
     }
+    // endregion
 }

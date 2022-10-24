@@ -1,8 +1,7 @@
-package Uno;
+package Uno.Parties;
 
 import Uno.Cards.BasicCard;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Player
@@ -42,5 +41,20 @@ public class Player
     public int GetAmountOfCards()
     {
         return _model.GetAmountOfCards();
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null || obj.getClass() != this.getClass())
+            return false;
+
+        return hashCode() == obj.hashCode();
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return _model.GetName().hashCode();
     }
 }

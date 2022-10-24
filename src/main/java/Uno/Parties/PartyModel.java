@@ -1,5 +1,6 @@
-package Uno;
+package Uno.Parties;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,11 +31,11 @@ public class PartyModel
     {
         return Collections.unmodifiableList(_losers);
     }
-    public int GetIndexOfPlayerInParty(Player player)
-    {
-        return _players.indexOf(player);
-    }
 
+    public int GetAmountOfPlayers()
+    {
+        return _players.size();
+    }
     public void Add(Player player)
     {
         _players.add(player);

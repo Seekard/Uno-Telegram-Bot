@@ -2,8 +2,8 @@ package Uno.Matches;
 
 import Uno.Cards.ActionCard;
 import Uno.Cards.BasicCard;
-import Uno.Party;
-import Uno.Player;
+import Uno.Parties.Party;
+import Uno.Parties.Player;
 
 public class MatchModel
 {
@@ -15,6 +15,11 @@ public class MatchModel
     {
         _party = party;
         _moveOrder = new MoveOrder(party);
+    }
+
+    public MoveOrder GetMoveOrder()
+    {
+        return _moveOrder;
     }
 
     public void MakeMove(Player player, BasicCard card) throws Exception

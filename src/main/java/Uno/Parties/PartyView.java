@@ -1,4 +1,4 @@
-package Uno;
+package Uno.Parties;
 
 public class PartyView {
 }

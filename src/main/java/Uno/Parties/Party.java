@@ -1,6 +1,5 @@
-package Uno;
+package Uno.Parties;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Party
@@ -27,6 +26,11 @@ public class Party
     public List<Player> GetLosers()
     {
         return _model.GetLosers();
+    }
+
+    public int GetAmountOfPlayers()
+    {
+        return _model.GetAmountOfPlayers();
     }
 
     public void Add(Player player)

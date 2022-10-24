@@ -1,4 +1,4 @@
-package Uno;
+package Uno.Parties;
 
 import Uno.Cards.BasicCard;
 import Uno.Cards.CardFactory;

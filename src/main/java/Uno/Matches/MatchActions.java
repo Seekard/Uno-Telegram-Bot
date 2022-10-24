@@ -1,31 +1,34 @@
 package Uno.Matches;
 
-import Uno.Player;
+import Uno.Parties.Player;
 
 public class MatchActions
 {
     private final Match _match;
+    private final MoveOrder _moveOrder;
 
-    public MatchActions(Match match, MoveOrder moveOrder)
+    public MatchActions(Match match)
     {
         _match = match;
+        _moveOrder = match.GetMoveOrder();
     }
 
     public void DrawTwoCards()
     {
-        Player nextPlayer = _match.GetNextPlayer();
+        Player nextPlayer = _moveOrder.GetNextPlayer();
         for (int i = 0; i < 2; i++)
             _match.GiveRandomCard(nextPlayer);
+        Skip();
     }
 
-    public void Reverse() throws Exception
+    public void Reverse()
     {
-        _match.SwitchMoveDirection();
+        _moveOrder.SwitchMoveDirection();
     }
 
     public void Skip()
     {
-        _match.SwitchTurn();
+        _moveOrder.SwitchTurn();
     }
 
     public void Wild()

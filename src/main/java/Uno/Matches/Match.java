@@ -1,18 +1,17 @@
 package Uno.Matches;
 
-import Uno.Cards.ActionCard;
 import Uno.Cards.BasicCard;
-import Uno.Party;
-import Uno.Player;
-
-import java.util.List;
+import Uno.Parties.Party;
+import Uno.Parties.Player;
 
 public class Match
 {
     private final MatchModel _model;
     private final MatchView _view;
-    public Match(Party party)
+    public Match(Party party) throws Exception
     {
+        if (party.GetAmountOfPlayers() < 2)
+            throw new Exception("Party must have at least two player!");
         _model = new MatchModel(party);
         _view = new MatchView();
     }
@@ -30,5 +29,10 @@ public class Match
     public void GiveRandomCard(Player player)
     {
         _model.GiveRandomCard(player);
+    }
+
+    public MoveOrder GetMoveOrder()
+    {
+        return _model.GetMoveOrder();
     }
 }
