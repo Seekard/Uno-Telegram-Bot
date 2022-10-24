@@ -12,7 +12,7 @@ public class Main
 
     public static void main(String[] args) throws Exception
     {
-        Player player = new Player("Negr");
+        Player player = new Player("Name 1");
         Party party = new Party();
         party.Add(player);
         Match match = new Match(party);
