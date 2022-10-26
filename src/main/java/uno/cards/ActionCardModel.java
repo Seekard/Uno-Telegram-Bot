@@ -1,6 +1,4 @@
-package Uno.Cards;
-
-import java.util.function.Function;
+package uno.cards;
 
 public class ActionCardModel extends BasicCardModel
 {
@@ -11,7 +9,7 @@ public class ActionCardModel extends BasicCardModel
         _action = action;
     }
 
-    public void Action()
+    public void action()
     {
         _action.run();
     }

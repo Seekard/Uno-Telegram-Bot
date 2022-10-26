@@ -1,4 +1,4 @@
-package Uno;
+package uno;
 
 public interface IUnoConfigurationSettings
 {

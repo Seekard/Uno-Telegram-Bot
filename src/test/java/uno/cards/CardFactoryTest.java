@@ -1,10 +1,9 @@
-package Uno.Cards;
+package uno.cards;
 
-import Uno.Matches.Match;
-import Uno.Matches.MatchActions;
-import Uno.Matches.MoveOrder;
-import Uno.Parties.Party;
-import Uno.Parties.Player;
+import uno.matches.Match;
+import uno.matches.MatchActions;
+import uno.parties.Party;
+import uno.parties.Player;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,7 +35,7 @@ class CardFactoryTest
         int value = 2;
         Color color = Color.Green;
         boolean expected = true;
-        boolean actual = _cardFactory.IsAvailableCard(value, color);
+        boolean actual = _cardFactory.isAvailableCard(value, color);
         assertEquals(expected, actual);
     }
 
@@ -46,7 +45,7 @@ class CardFactoryTest
         int value = 5;
         Color color = Color.Red;
         boolean expected = true;
-        boolean actual = _cardFactory.IsAvailableCard(value, color);
+        boolean actual = _cardFactory.isAvailableCard(value, color);
         assertEquals(expected, actual);
     }
 
@@ -56,7 +55,7 @@ class CardFactoryTest
         int value = 5;
         Color color = Color.Any;
         boolean expected = false;
-        boolean actual = _cardFactory.IsAvailableCard(value, color);
+        boolean actual = _cardFactory.isAvailableCard(value, color);
         assertEquals(expected, actual);
     }
 
@@ -66,7 +65,7 @@ class CardFactoryTest
         int value = 11;
         Color color = Color.Red;
         boolean expected = false;
-        boolean actual = _cardFactory.IsAvailableCard(value, color);
+        boolean actual = _cardFactory.isAvailableCard(value, color);
         assertEquals(expected, actual);
     }
 
@@ -76,7 +75,7 @@ class CardFactoryTest
         int value = 11;
         Color color = Color.Any;
         boolean expected = false;
-        boolean actual = _cardFactory.IsAvailableCard(value, color);
+        boolean actual = _cardFactory.isAvailableCard(value, color);
         assertEquals(expected, actual);
     }
     @Test
@@ -85,7 +84,7 @@ class CardFactoryTest
         int value = 9;
         Color color = Color.Blue;
         boolean expected = true;
-        boolean actual = _cardFactory.IsAvailableCard(value, color);
+        boolean actual = _cardFactory.isAvailableCard(value, color);
         assertEquals(expected, actual);
     }
 
@@ -97,7 +96,7 @@ class CardFactoryTest
         int value = 2;
         Color color = Color.Green;
         BasicCard expected = new BasicCard(value, color);
-        BasicCard actual = _cardFactory.Get(value, color);
+        BasicCard actual = _cardFactory.get(value, color);
         assertEquals(expected, actual);
     }
 
@@ -106,7 +105,7 @@ class CardFactoryTest
         int value = 5;
         Color color = Color.Red;
         BasicCard expected = new BasicCard(value, color);
-        BasicCard actual = _cardFactory.Get(value, color);
+        BasicCard actual = _cardFactory.get(value, color);
         assertEquals(expected, actual);
     }
     // endregion

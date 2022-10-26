@@ -1,4 +1,4 @@
-package Uno.Cards;
+package uno.cards;
 
 public class BasicCardView {
 }

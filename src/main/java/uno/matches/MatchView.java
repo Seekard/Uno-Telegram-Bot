@@ -1,4 +1,4 @@
-package Uno.Matches;
+package uno.matches;
 
 public class MatchView {
 }

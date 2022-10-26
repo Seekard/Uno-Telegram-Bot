@@ -1,16 +1,16 @@
-package Uno.Cards;
+package uno.cards;
 
 public class ActionCard extends BasicCard
 {
     public ActionCard(int value, Color color, Runnable action)
     {
         super(value, color);
-        _model = new ActionCardModel(value, color, action);
-        _view = new ActionCardView();
+        model = new ActionCardModel(value, color, action);
+        view = new ActionCardView();
     }
 
     public void Action()
     {
-        ((ActionCardModel)_model).Action();
+        ((ActionCardModel)model).action();
     }
 }
