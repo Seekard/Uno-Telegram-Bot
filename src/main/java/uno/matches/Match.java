@@ -21,18 +21,17 @@ public class Match
         model.makeMove(player, card);
     }
 
-    public void putCard(Player player, BasicCard card) throws Exception
-    {
-        model.putCard(player, card);
-    }
-
-    public void giveRandomCard(Player player)
-    {
+    public void giveRandomCard(Player player) throws Exception {
         model.giveRandomCard(player);
     }
 
     public MoveOrder getMoveOrder()
     {
         return model.getMoveOrder();
+    }
+
+    public Player getPlayerWhoseTurn()
+    {
+        return getMoveOrder().getPlayerWhoseTurn();
     }
 }

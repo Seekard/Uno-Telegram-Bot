@@ -2,19 +2,32 @@ package uno.matches;
 
 import uno.cards.ActionCard;
 import uno.cards.BasicCard;
+import uno.cards.CardFactory;
 import uno.parties.Party;
 import uno.parties.Player;
 
+import java.util.Random;
+import java.util.random.RandomGenerator;
+
 public class MatchModel
 {
-    private final Party party;
     private final MoveOrder moveOrder;
-    private final int _hash = 0;
+    private final Random randomGenerator;
+    private final CardFactory cardFactory;
+    private final int hash;
+
+    public MatchModel(Party party, int hash)
+    {
+        moveOrder = new MoveOrder(party);
+        this.hash = hash;
+        randomGenerator = new Random(hash);
+        MatchActions matchActions = new MatchActions(this);
+        cardFactory = new CardFactory(matchActions);
+    }
 
     public MatchModel(Party party)
     {
-        this.party = party;
-        moveOrder = new MoveOrder(party);
+        this(party, 1);
     }
 
     public MoveOrder getMoveOrder()
@@ -30,18 +43,19 @@ public class MatchModel
         moveOrder.switchTurn();
     }
 
-    public void putCard(Player player, BasicCard card) throws Exception
+    private void putCard(Player player, BasicCard card) throws Exception
     {
         player.removeCard(card);
+    }
+
+    public void giveRandomCard(Player player) {
+        int randomNumber = randomGenerator.nextInt();
+        BasicCard card = cardFactory.getCardByRandomNumber(randomNumber);
+        giveCard(player, card);
     }
 
     private void giveCard(Player player, BasicCard card)
     {
         player.addCard(card);
-    }
-
-    public void giveRandomCard(Player player)
-    {
-
     }
 }

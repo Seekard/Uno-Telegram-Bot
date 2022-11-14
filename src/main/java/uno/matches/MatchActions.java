@@ -4,17 +4,16 @@ import uno.parties.Player;
 
 public class MatchActions
 {
-    private final Match match;
+    private final MatchModel match;
     private final MoveOrder moveOrder;
 
-    public MatchActions(Match match)
+    public MatchActions(MatchModel match)
     {
         this.match = match;
         moveOrder = match.getMoveOrder();
     }
 
-    public void drawTwoCards()
-    {
+    public void drawTwoCards() {
         Player nextPlayer = moveOrder.getNextPlayer();
         for (int i = 0; i < 2; i++)
             match.giveRandomCard(nextPlayer);

@@ -7,15 +7,13 @@ import java.util.HashSet;
 
 public class CardFactory
 {
-    private final HashSet<BasicCard> _availableCards;
+    private final HashSet<BasicCard> availableCards;
+    private final MatchActions matchActions;
     public CardFactory(MatchActions matchActions)
     {
-        _availableCards = initializeAvailableCards(matchActions);
+        this.matchActions = matchActions;
+        availableCards = initializeAvailableCards(matchActions);
     }
-
-    // basicCardsValues = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}
-    // functionalCardsValues = { "reverse turn", "+2", "block move" }
-    // specialCardsValues = { "+4", "switch to another color" }
 
     private HashSet<BasicCard> initializeAvailableCards(MatchActions matchActions)
     {
@@ -62,16 +60,40 @@ public class CardFactory
         return actionCards;
     }
 
-    public BasicCard get(int value, Color color) throws Exception
+    public BasicCard get(int value, Color color)
     {
         if (isAvailableCard(value, color))
+        {
+            if (value >= 10)
+                return getActionCard(value, color);
             return new BasicCard(value, color);
-        throw new Exception("No such card in game!");
+        }
+        return null;
+    }
+
+    private BasicCard getActionCard(int value, Color color)
+    {
+        return switch (value) {
+            case 10 -> new ActionCard(value, color, matchActions::drawTwoCards);
+            case 11 -> new ActionCard(value, color, matchActions::reverse);
+            case 12 -> new ActionCard(value, color, matchActions::skip);
+            case 13 -> new ActionCard(value, color, matchActions::wild);
+            case 14 -> new ActionCard(value, color, matchActions::wildDrawFourCards);
+            default -> null;
+        };
     }
 
     public boolean isAvailableCard(int value, Color color)
     {
         BasicCard card = new BasicCard(value, color);
-        return _availableCards.contains(card);
+        return availableCards.contains(card);
+    }
+
+    public BasicCard getCardByRandomNumber(int randomNumber) {
+        int cardValue = randomNumber % 15;
+        if (cardValue == 13 || cardValue == 14)
+            return get(cardValue, Color.Any);
+        Color cardColor = Color.getByIndex(randomNumber % 4);
+        return get(cardValue, cardColor);
     }
 }
