@@ -9,11 +9,11 @@ public class Main
 
     public static void main(String[] args) throws Exception
     {
-        Player player = new Player("Negr");
+        Player player1 = new Player("smbd1");
+        Player player2 = new Player("smbd2");
         Party party = new Party();
-        party.add(player);
+        party.add(player1);
+        party.add(player2);
         Match match = new Match(party);
-        MatchActions matchActions = new MatchActions(match);
-        CardFactory cardFactory = new CardFactory(matchActions);
     }
 }

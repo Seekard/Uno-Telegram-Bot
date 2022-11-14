@@ -30,6 +30,11 @@ public class MoveOrder
         return players.get(indexOfNextPlayer);
     }
 
+    public Player getPlayerWhoseTurn()
+    {
+        return playerWhoseTurn;
+    }
+
     public void switchTurn()
     {
         playerWhoseTurn = getNextPlayer();
