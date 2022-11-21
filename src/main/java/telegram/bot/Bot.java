@@ -12,7 +12,7 @@ import telegram.commands.services.HelpCommand;
 import telegram.commands.services.StartCommand;
 
 import telegram.commands.operations.CreateParty;
-
+import telegram.commands.operations.InviteMate;
 
 
 public class Bot extends TelegramLongPollingCommandBot
@@ -28,6 +28,7 @@ public class Bot extends TelegramLongPollingCommandBot
         register(new StartCommand("start", "Старт"));
         register(new HelpCommand("help", "Справка"));
         register(new CreateParty("create", "Создать лобби"));
+        register(new InviteMate("invite", "Пригласить человека"));
     }
     public String getBotUsername(){
         return BOT_NAME;

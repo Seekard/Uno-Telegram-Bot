@@ -15,7 +15,7 @@ public class StartCommand extends ServiceCommand {
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] params) {
         if (!Utils.UserPull.containsKey(user.getId().toString())){
-            Utils.UserPull.put(user.getId().toString(), UserState.NotPlaying);
+            Utils.UserPull.put(user, UserState.NotPlaying);
         }
 
         sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(), getUserName(user),

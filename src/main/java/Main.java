@@ -1,19 +1,39 @@
-import uno.cards.CardFactory;
-import uno.matches.Match;
-import uno.matches.MatchActions;
-import uno.parties.Party;
-import uno.parties.Player;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+
+import telegram.bot.Bot;
+
+import java.util.HashMap;
+import java.io.*;
 
 public class Main
 {
+    public static HashMap<String, String> getBotAttributes(String filepath){
+        HashMap<String, String> attrs = new HashMap<>();
 
+        try(FileReader reader = new FileReader(filepath))
+        {
+            BufferedReader bufReader = new BufferedReader(reader);
+            attrs.put("botName", bufReader.readLine());
+            attrs.put("botToken", bufReader.readLine());
+        }
+        catch(IOException ex){
+            ex.printStackTrace(System.out);
+        }
+        return attrs;
+    }
     public static void main(String[] args) throws Exception
     {
-        Player player1 = new Player("smbd1");
-        Player player2 = new Player("smbd2");
-        Party party = new Party();
-        party.add(player1);
-        party.add(player2);
-        Match match = new Match(party);
+        try {
+            HashMap<String, String> botAttrs = getBotAttributes("../settings.txt");
+            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+            botsApi.registerBot( new Bot(
+                    botAttrs.get("botName"),
+                    botAttrs.get("botToken")
+            ));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 }
