@@ -11,8 +11,4 @@ public class Invitation {
     public UserPlayer getInvitor() {
         return invitor;
     }
-
-    public UserPlayer getInvited(){
-        return invited;
-    }
 }

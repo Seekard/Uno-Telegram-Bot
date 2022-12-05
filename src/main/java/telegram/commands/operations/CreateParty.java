@@ -1,15 +1,18 @@
 package telegram.commands.operations;
 
+import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 
-import telegram.commands.util.Utils;
+import telegram.UserPlayer.Membership;
+import telegram.UserPlayer.UserPlayer;
+import telegram.commands.abstracts.SingleUserAnswering;
+import telegram.commands.util.UserPull;
 import uno.parties.Party;
 import uno.parties.Player;
-import telegram.UserPlayer.UserPlayer;
 
-public class CreateParty extends OperationCommand {
+public class CreateParty extends BotCommand implements SingleUserAnswering {
     String successMessage = "success message";
     String errorMessage = "error message";
 
@@ -19,21 +22,14 @@ public class CreateParty extends OperationCommand {
 
     public void execute(AbsSender absSender, User user, Chat chat, String[] params){
         String outputMessage;
+        UserPlayer userPlayer = UserPull.get_or_create(user, chat.getId());
+        String userName = userPlayer.getUserName();
 
-        String userName = getUserName(user);
-
-        UserPlayer userPlayer = Utils.UserPull.get(user);
-
-        if (userPlayer == null){
-            userPlayer = new UserPlayer(user, chat.getId());
-            Utils.UserPull.put(user, userPlayer);
-        }
-
-        if (!userPlayer.isPlaying()) {
+        if (userPlayer.isNotPlaying()) {
             Party party = new Party();
             Player player = new Player(userName);
             party.add(player);
-            userPlayer.setMembership(party, player);
+            userPlayer.setMembership(new Membership(party));
             outputMessage = this.successMessage;
         } else {
             outputMessage = this.errorMessage;

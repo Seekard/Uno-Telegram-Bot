@@ -1,37 +1,35 @@
 package telegram.commands.operations;
 
+import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import telegram.UserPlayer.UserPlayer;
-import telegram.commands.util.Utils;
+import telegram.commands.util.UserPull;
+import telegram.commands.abstracts.GroupAnswering;
 import uno.parties.Party;
 import uno.parties.Player;
 
-public class AnswerInvitation extends OperationCommand{
+
+public class AnswerInvitation extends BotCommand implements GroupAnswering {
     public AnswerInvitation(String name, String description) {
         super(name, description);
     }
 
-
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
+        UserPlayer invited = UserPull.get_or_create(user, chat.getId());
 
-        UserPlayer userPlayer = Utils.UserPull.get(user);
-        if (userPlayer.hasInvitation()) {
-            UserPlayer invitor = userPlayer.getInvitation().getInvitor();
+        if (invited.hasInvitation()) {
+            UserPlayer invitor = invited.getInvitation().getInvitor();
             Party party = invitor.getCurrentParty();
-            String invitedName = userPlayer.getUserName();
+            String invitedName = invited.getUserName();
 
             if (this.getCommandIdentifier().equals("accept")) {
-                for (UserPlayer member: Utils.UserPull.values()) {
-                    if (member.getCurrentParty().equals(party)) {
-                        sendAnswer(absSender, member.getChatId(), member.getUserName(),
-                                this.getCommandIdentifier(),
-                                "К вам примоединился новый игрок: " + invitedName);
-                    }
-                }
-                invitor.setMembership(party, new Player(invitedName));
+
+                invited.setMembership(invitor.getMembership());
+                sendGroupAnswer(absSender, this.getCommandIdentifier(), party,
+                        "К вам вступил новый пользователь" + invitedName);
 
             } else if (this.getCommandIdentifier().equals("refuse")) {
                 sendAnswer(absSender, invitor.getChatId(), invitor.getUserName(),
@@ -41,7 +39,7 @@ public class AnswerInvitation extends OperationCommand{
             }
         }
         else {
-            sendAnswer(absSender, chat.getId(), userPlayer.getUserName(),
+            sendAnswer(absSender, chat.getId(), invited.getUserName(),
                     this.getCommandIdentifier(),
                     "Странно, но у вас нет ни одного приглашения"
             );

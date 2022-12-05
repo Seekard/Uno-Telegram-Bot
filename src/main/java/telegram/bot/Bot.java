@@ -8,12 +8,9 @@ import org.telegram.telegrambots.*;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import telegram.commands.operations.*;
 import telegram.commands.services.HelpCommand;
 import telegram.commands.services.StartCommand;
-
-import telegram.commands.operations.CreateParty;
-import telegram.commands.operations.InviteMate;
-import telegram.commands.operations.AnswerInvitation;
 
 public class Bot extends TelegramLongPollingCommandBot
 {
@@ -29,8 +26,10 @@ public class Bot extends TelegramLongPollingCommandBot
         register(new HelpCommand("help", "Справка"));
         register(new CreateParty("create", "Создать лобби"));
         register(new InviteMate("invite", "Пригласить человека"));
-        register(new AnswerInvitation("accept", ""));
-        register(new AnswerInvitation("refuse", ""));
+        register(new AnswerInvitation("accept", "Принять приглашение"));
+        register(new AnswerInvitation("refuse", "Отказаться от приглашения"));
+        register(new StartMatch("startmatch", "Начать игру"));
+        register(new LeaveMatch("leave", "Покинуть игру"));
     }
     public String getBotUsername(){
         return BOT_NAME;

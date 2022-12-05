@@ -1,33 +1,17 @@
 package telegram.UserPlayer;
 
 import org.telegram.telegrambots.meta.api.objects.User;
+import uno.GameProvider;
 import uno.parties.Party;
 import uno.parties.Player;
 
 public class UserPlayer {
-
-    private class Membership {
-        private final Party party;
-        private final Player player;
-
-        private Membership(Party _party, Player _player) {
-            this.party = _party;
-            this.player = _player;
-        }
-
-        public Party getParty() {
-            return this.party;
-        }
-
-        public Player getPlayer(){
-            return this.player;
-        }
-    }
-
     private final User user;
     private final Long chatId;
     private Membership membership;
     private Invitation invitation;
+
+    private Player player;
 
     public UserPlayer(User user, Long chatId){
         this.user = user;
@@ -51,12 +35,15 @@ public class UserPlayer {
         return chatId;
     }
 
-    public boolean isPlaying() {
-        return this.membership != null;
+    public boolean isNotPlaying() {
+        return this.membership == null;
     }
 
-    public void setMembership(Party party, Player player) {
-        this.membership = new Membership(party, player);
+    public void setMembership(Membership membership) {
+        this.membership = membership;
+    }
+    public Membership getMembership(){
+        return this.membership;
     }
 
     public Invitation getInvitation(){
