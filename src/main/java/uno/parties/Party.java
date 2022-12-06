@@ -42,4 +42,9 @@ public class Party
     {
         model.remove(player);
     }
+
+    public void surrender(Player player)
+    {
+        model.surrender(player);
+    }
 }

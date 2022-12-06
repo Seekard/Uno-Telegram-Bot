@@ -54,4 +54,9 @@ public class PartyModel
         if (losers.contains(player))
             losers.remove(player);
     }
+    public void surrender(Player player)
+    {
+        inGamePlayers.remove(player);
+        losers.add(player);
+    }
 }

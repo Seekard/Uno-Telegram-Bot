@@ -13,8 +13,8 @@ import uno.parties.Party;
 import uno.parties.Player;
 
 public class CreateParty extends BotCommand implements SingleUserAnswering {
-    String successMessage = "success message";
-    String errorMessage = "error message";
+    String successMessage = "Лобби успешно создано";
+    String errorMessage = "Кажется, вы уже состоите в лобби";
 
     public CreateParty(String name, String description) {
         super(name, description);
@@ -27,9 +27,9 @@ public class CreateParty extends BotCommand implements SingleUserAnswering {
 
         if (userPlayer.isNotPlaying()) {
             Party party = new Party();
-            Player player = new Player(userName);
-            party.add(player);
+            party.add(userPlayer.getPlayer());
             userPlayer.setMembership(new Membership(party));
+
             outputMessage = this.successMessage;
         } else {
             outputMessage = this.errorMessage;
