@@ -1,16 +1,16 @@
 package telegram.bot;
 
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.*;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import telegram.commands.NonCommand;
 import telegram.commands.operations.*;
 import telegram.commands.services.HelpCommand;
 import telegram.commands.services.StartCommand;
+import telegram.commands.services.EchoMessage;
 
 public class Bot extends TelegramLongPollingCommandBot
 {
@@ -30,6 +30,7 @@ public class Bot extends TelegramLongPollingCommandBot
         register(new AnswerInvitation("refuse", "Отказаться от приглашения"));
         register(new StartMatch("startmatch", "Начать игру"));
         register(new LeaveMatch("leave", "Покинуть игру"));
+        register(new EchoMessage("echo", "Отправить сообщение всем участникам лобби"));
     }
     public String getBotUsername(){
         return BOT_NAME;
@@ -43,13 +44,14 @@ public class Bot extends TelegramLongPollingCommandBot
     public void processNonCommandUpdate(Update update){
         Message message = update.getMessage();
         Long chatId = message.getChatId();
+        User user = message.getFrom();
+        NonCommand nonCommand = new NonCommand(message, user, chatId);
 
-        String userName = getUserName(message);
-    }
-
-    private String getUserName(Message msg){
-        User user = msg.getFrom();
-        String userName = user.getUserName();
-        return (userName != null) ? userName : String.format("%s %s", user.getFirstName(), user.getLastName());
+        try{
+            execute(nonCommand.execute());
+        }
+        catch (TelegramApiException e){
+            e.printStackTrace(System.out);
+        }
     }
 }
