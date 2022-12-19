@@ -7,7 +7,6 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import telegram.UserPlayer.UserPlayer;
-import telegram.commands.abstracts.GroupAnswering;
 import telegram.commands.util.UserPull;
 import telegram.commands.util.fromStickerId2Card;
 
@@ -17,7 +16,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 
-public class NonCommand implements GroupAnswering {
+public class NonCommand {
 
     private final UserPlayer userPlayer;
     private final Message message;

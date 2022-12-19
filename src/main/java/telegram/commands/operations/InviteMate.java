@@ -6,11 +6,11 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
 import telegram.UserPlayer.UserPlayer;
-import telegram.commands.abstracts.GroupAnswering;
+import telegram.commands.abstracts.SingleMessageSender;
 import telegram.commands.util.UserPull;
 
 
-public class InviteMate extends BotCommand implements GroupAnswering {
+public class InviteMate extends BotCommand {
 
 
     public InviteMate(String name, String description) {
@@ -50,14 +50,14 @@ public class InviteMate extends BotCommand implements GroupAnswering {
                 outputMessage = "Я не могу пригласить этого человека";
             } else if (invited.isNotPlaying() && !invited.hasInvitation()) {
                 invited.setInvitation(userPlayer);
-                sendAnswer(absSender, invited.getChatId(), this.getCommandIdentifier(), invited.getUserName(),
+                SingleMessageSender.sendMessage(absSender, invited.getChatId(), this.getCommandIdentifier(), invited.getUserName(),
                         "Пользователь " + userPlayer.getPlayer() + " приглашает вас в лобби");
                 outputMessage = "Приглащению пользователю " + userNameToInvite + " отправлено, ожидайте";
             } else {
                 outputMessage = "Данный пользователь уже занят";
             }
         }
-        sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(), userPlayer.getUserName(),
+        SingleMessageSender.sendMessage(absSender, chat.getId(), this.getCommandIdentifier(), userPlayer.getUserName(),
                 outputMessage);
     }
 }

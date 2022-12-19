@@ -31,7 +31,11 @@ public class Bot extends TelegramLongPollingCommandBot
         register(new StartMatch("startmatch", "Начать игру"));
         register(new LeaveMatch("leave", "Покинуть игру"));
         register(new EchoMessage("echo", "Отправить сообщение всем участникам лобби"));
+        register(new GiveInfoCommand("info", "Получить инфу"));
+        register(new TakeCardCommand("take", "Взять карту"));
+        register(new MakeMoveCommand("put", "Положить карту"));
     }
+
     public String getBotUsername(){
         return BOT_NAME;
     }

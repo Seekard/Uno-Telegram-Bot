@@ -5,13 +5,14 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import telegram.UserPlayer.UserPlayer;
+import telegram.commands.abstracts.GroupMessageSender;
+import telegram.commands.abstracts.SingleMessageSender;
 import telegram.commands.util.UserPull;
-import telegram.commands.abstracts.GroupAnswering;
 import uno.parties.Party;
 import uno.parties.Player;
 
 
-public class AnswerInvitation extends BotCommand implements GroupAnswering {
+public class AnswerInvitation extends BotCommand {
     public AnswerInvitation(String name, String description) {
         super(name, description);
     }
@@ -28,18 +29,18 @@ public class AnswerInvitation extends BotCommand implements GroupAnswering {
             if (this.getCommandIdentifier().equals("accept")) {
 
                 invited.setMembership(invitor.getMembership());
-                sendGroupAnswer(absSender, this.getCommandIdentifier(), party,
+                GroupMessageSender.sendMessage(absSender, this.getCommandIdentifier(), party,
                         "К вам вступил новый пользователь" + invitedName);
 
             } else if (this.getCommandIdentifier().equals("refuse")) {
-                sendAnswer(absSender, invitor.getChatId(), invitor.getUserName(),
+                SingleMessageSender.sendMessage(absSender, invitor.getChatId(), invitor.getUserName(),
                         this.getCommandIdentifier(),
                         "Отказался от приглашения " + invitedName
                 );
             }
         }
         else {
-            sendAnswer(absSender, chat.getId(), invited.getUserName(),
+            SingleMessageSender.sendMessage(absSender, chat.getId(), invited.getUserName(),
                     this.getCommandIdentifier(),
                     "Странно, но у вас нет ни одного приглашения"
             );

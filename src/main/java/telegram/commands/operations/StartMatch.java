@@ -4,12 +4,13 @@ import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
-import telegram.commands.abstracts.GroupAnswering;
+import telegram.commands.abstracts.GroupMessageSender;
+import telegram.commands.abstracts.SingleMessageSender;
 import telegram.commands.util.UserPull;
 import uno.GameProvider;
 import uno.parties.Party;
 
-public class StartMatch extends BotCommand implements GroupAnswering {
+public class StartMatch extends BotCommand {
 
     public StartMatch(String name, String description){
         super(name, description);
@@ -20,7 +21,7 @@ public class StartMatch extends BotCommand implements GroupAnswering {
 
         var userPlayer = UserPull.get_or_create(user, chat.getId());
         if (userPlayer.isNotPlaying()){
-            sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(),
+            SingleMessageSender.sendMessage(absSender, chat.getId(), this.getCommandIdentifier(),
                     userPlayer.getUserName(),
                     "Вы не создали игру"
             );
@@ -28,14 +29,14 @@ public class StartMatch extends BotCommand implements GroupAnswering {
         else {
             Party party = userPlayer.getMembership().getParty();
             try {
-                GameProvider gameProvider = new GameProvider(party);
+                GameProvider gameProvider = new GameProvider(party, 1);
                 userPlayer.getMembership().setProvider(gameProvider);
-                sendGroupAnswer(absSender, this.getCommandIdentifier(),
+                GroupMessageSender.sendMessage(absSender, this.getCommandIdentifier(),
                         party,
-                        "Игрок: " + userPlayer + " начал игру"
+                        "Игрок: " + userPlayer.getPlayer().getName() + " начал игру"
                 );
             } catch (Exception e) {
-                sendGroupAnswer(absSender, this.getCommandIdentifier(),
+                GroupMessageSender.sendMessage(absSender, this.getCommandIdentifier(),
                         party,
                         "создать игру не получилось"
                 );

@@ -7,12 +7,12 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 
 import telegram.UserPlayer.Membership;
 import telegram.UserPlayer.UserPlayer;
-import telegram.commands.abstracts.SingleUserAnswering;
+import telegram.commands.abstracts.SingleMessageSender;
 import telegram.commands.util.UserPull;
 import uno.parties.Party;
 import uno.parties.Player;
 
-public class CreateParty extends BotCommand implements SingleUserAnswering {
+public class CreateParty extends BotCommand {
     String successMessage = "Лобби успешно создано";
     String errorMessage = "Кажется, вы уже состоите в лобби";
 
@@ -27,7 +27,6 @@ public class CreateParty extends BotCommand implements SingleUserAnswering {
 
         if (userPlayer.isNotPlaying()) {
             Party party = new Party();
-            party.add(userPlayer.getPlayer());
             userPlayer.setMembership(new Membership(party));
 
             outputMessage = this.successMessage;
@@ -35,7 +34,7 @@ public class CreateParty extends BotCommand implements SingleUserAnswering {
             outputMessage = this.errorMessage;
         }
 
-        sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(), userName,
+        SingleMessageSender.sendMessage(absSender, chat.getId(), this.getCommandIdentifier(), userName,
          outputMessage);
 
     }

@@ -4,12 +4,10 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public interface SingleUserAnswering {
+public class SingleMessageSender {
 
-    default void sendAnswer(AbsSender absSender, Long chatId, String commandName, String userName, String text){
+    public static void sendMessage(AbsSender absSender, Long chatId, String commandName, String userName, String text){
         SendMessage message = new SendMessage();
-
-        message.enableMarkdown(true);
         message.setChatId(chatId.toString());
         message.setText(text);
         try {
