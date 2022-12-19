@@ -50,14 +50,13 @@ public class InviteMate extends BotCommand implements GroupAnswering {
                 outputMessage = "Я не могу пригласить этого человека";
             } else if (invited.isNotPlaying() && !invited.hasInvitation()) {
                 invited.setInvitation(userPlayer);
-                sendAnswer(absSender, invited.getChatId(), this.getCommandIdentifier(), invited.getUserName(),
+                sendAnswer(absSender, invited.getChatId(),
                         "Пользователь " + userPlayer.getPlayer() + " приглашает вас в лобби");
                 outputMessage = "Приглащению пользователю " + userNameToInvite + " отправлено, ожидайте";
             } else {
                 outputMessage = "Данный пользователь уже занят";
             }
         }
-        sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(), userPlayer.getUserName(),
-                outputMessage);
+        sendAnswer(absSender, chat.getId(), outputMessage);
     }
 }

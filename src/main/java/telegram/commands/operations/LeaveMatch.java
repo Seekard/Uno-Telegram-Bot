@@ -16,11 +16,11 @@ public class LeaveMatch extends BotCommand implements GroupAnswering {
     public void execute(AbsSender absSender, User user, Chat chat, String[] params){
         var userPlayer = UserPull.get_or_create(user, chat.getId());
         if (userPlayer.isNotPlaying()) {
-            sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(), userPlayer.getUserName(),
+            sendAnswer(absSender, chat.getId(),
                     "Кажется вы и так не состоите в лобби");
         }
         else{
-            sendGroupAnswer(absSender, this.getCommandIdentifier(), userPlayer.getMembership().getParty(),
+            sendGroupAnswer(absSender, userPlayer.getMembership().getParty(),
                     "Игрок " + userPlayer.getUserName() + " покинул лобби");
             userPlayer.leaveMembership();
         }

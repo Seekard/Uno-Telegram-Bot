@@ -6,7 +6,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public interface SingleUserAnswering {
 
-    default void sendAnswer(AbsSender absSender, Long chatId, String commandName, String userName, String text){
+    default void sendAnswer(AbsSender absSender, Long chatId, String text){
         SendMessage message = new SendMessage();
 
         message.enableMarkdown(true);

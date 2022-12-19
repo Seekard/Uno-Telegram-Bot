@@ -1,12 +1,13 @@
 package telegram.bot;
 
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import telegram.commands.NonCommand;
+import telegram.commands.operations.DropCardCommand;
 import telegram.commands.operations.*;
 import telegram.commands.services.HelpCommand;
 import telegram.commands.services.StartCommand;
@@ -31,6 +32,7 @@ public class Bot extends TelegramLongPollingCommandBot
         register(new StartMatch("startmatch", "Начать игру"));
         register(new LeaveMatch("leave", "Покинуть игру"));
         register(new EchoMessage("echo", "Отправить сообщение всем участникам лобби"));
+        register(new DropCardCommand("drop", "Отправить карту"));
     }
     public String getBotUsername(){
         return BOT_NAME;
@@ -44,13 +46,14 @@ public class Bot extends TelegramLongPollingCommandBot
     public void processNonCommandUpdate(Update update){
         Message message = update.getMessage();
         Long chatId = message.getChatId();
-        User user = message.getFrom();
-        NonCommand nonCommand = new NonCommand(message, user, chatId);
 
-        try{
-            execute(nonCommand.execute());
-        }
-        catch (TelegramApiException e){
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setText("я не могу опознать команду");
+        sendMessage.setChatId(chatId.toString());
+
+        try {
+            execute(sendMessage);
+        } catch (TelegramApiException e) {
             e.printStackTrace(System.out);
         }
     }

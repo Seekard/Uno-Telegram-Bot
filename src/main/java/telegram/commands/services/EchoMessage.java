@@ -16,12 +16,11 @@ public class EchoMessage extends BotCommand implements GroupAnswering {
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         var sender = UserPull.get_or_create(user, chat.getId());
         if (sender.isNotPlaying()) {
-            sendGroupAnswer(absSender, this.getCommandIdentifier(), sender.getMembership().getParty(),
+            sendGroupAnswer(absSender, sender.getMembership().getParty(),
                     sender.getUserName() + ": " + strings[0]);
         }
         else {
-            sendAnswer(absSender, sender.getChatId(), this.getCommandIdentifier(), sender.getUserName(),
-                    "вы не состоите в лобби");
+            sendAnswer(absSender, sender.getChatId(),"вы не состоите в лобби");
         }
     }
 }

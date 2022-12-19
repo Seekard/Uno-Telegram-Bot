@@ -28,19 +28,17 @@ public class AnswerInvitation extends BotCommand implements GroupAnswering {
             if (this.getCommandIdentifier().equals("accept")) {
 
                 invited.setMembership(invitor.getMembership());
-                sendGroupAnswer(absSender, this.getCommandIdentifier(), party,
+                sendGroupAnswer(absSender, party,
                         "К вам вступил новый пользователь" + invitedName);
 
             } else if (this.getCommandIdentifier().equals("refuse")) {
-                sendAnswer(absSender, invitor.getChatId(), invitor.getUserName(),
-                        this.getCommandIdentifier(),
+                sendAnswer(absSender, invitor.getChatId(),
                         "Отказался от приглашения " + invitedName
                 );
             }
         }
         else {
-            sendAnswer(absSender, chat.getId(), invited.getUserName(),
-                    this.getCommandIdentifier(),
+            sendAnswer(absSender, chat.getId(),
                     "Странно, но у вас нет ни одного приглашения"
             );
         }

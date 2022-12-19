@@ -1,7 +1,6 @@
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-
 import telegram.bot.Bot;
 
 import java.util.HashMap;
@@ -23,7 +22,7 @@ public class Main
         }
         return attrs;
     }
-    public static void main(String[] args) throws Exception
+    public static void main(String[] args)
     {
         try {
             HashMap<String, String> botAttrs = getBotAttributes("../settings.txt");

@@ -16,7 +16,6 @@ public class HelpCommand extends BotCommand implements SingleUserAnswering {
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] params) {
         UserPlayer userPlayer = UserPull.get_or_create(user, chat.getId());
-        sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(), userPlayer.getUserName(),
-                "какой-то вспомогательный текст");
+        sendAnswer(absSender, chat.getId(),"какой-то вспомогательный текст");
     }
 }

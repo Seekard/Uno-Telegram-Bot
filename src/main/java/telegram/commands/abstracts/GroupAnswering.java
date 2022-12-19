@@ -5,10 +5,10 @@ import telegram.commands.util.UserPull;
 
 public interface GroupAnswering extends SingleUserAnswering{
 
-    default void sendGroupAnswer(AbsSender absSender, String commandName, Object group, String text){
+    default void sendGroupAnswer(AbsSender absSender, Object group, String text){
         for (var member: UserPull.pull.values()) {
             if (member.getCurrentParty().equals(group)) {
-                sendAnswer(absSender, member.getChatId(), member.getUserName(), commandName, text);
+                sendAnswer(absSender, member.getChatId(), text);
             }
         }
     }

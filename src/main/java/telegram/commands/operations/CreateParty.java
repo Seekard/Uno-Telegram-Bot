@@ -35,8 +35,7 @@ public class CreateParty extends BotCommand implements SingleUserAnswering {
             outputMessage = this.errorMessage;
         }
 
-        sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(), userName,
-         outputMessage);
+        sendAnswer(absSender, chat.getId(), outputMessage);
 
     }
 }
