@@ -3,6 +3,9 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import telegram.bot.Bot;
+import uno.GameProvider;
+import uno.parties.Party;
+import uno.parties.Player;
 
 import java.util.HashMap;
 import java.io.*;
@@ -25,6 +28,15 @@ public class Main
     }
     public static void main(String[] args) throws Exception
     {
+//        var party = new Party();
+//        var player1 = new Player("123");
+//        var player2 = new Player("456");
+//        party.add(player1);
+//        party.add(player2);
+//        var provider = new GameProvider(party, 1);
+//        provider.makeMove(player1, provider.getCard("r_2"));
+//        var a = new Player("2");
+
         try {
             HashMap<String, String> botAttrs = getBotAttributes("../settings.txt");
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);

@@ -11,17 +11,27 @@ public class GameProvider
 {
     private final Match match;
 
-    public GameProvider(Party party) throws Exception
+    public GameProvider(Party party, int hash) throws Exception
     {
-        match = new Match(party);
+        match = new Match(party, hash);
     }
 
-    public void makeMove(Player player, BasicCard card) throws Exception
+    public void makeMove(Player player, BasicCard card)
     {
         match.makeMove(player, card);
     }
 
-    public void giveRandomCard(Player player) throws Exception {
+    public boolean CouldBePlaced(BasicCard card)
+    {
+        return match.CouldBePlaced(card);
+    }
+
+    public BasicCard getCard(String cardName)
+    {
+        return match.getCard(cardName);
+    }
+
+    public void giveRandomCard(Player player) {
         match.giveRandomCard(player);
     }
 

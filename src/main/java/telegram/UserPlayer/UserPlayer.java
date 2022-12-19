@@ -8,7 +8,7 @@ import uno.parties.Player;
 public class UserPlayer {
     private final User user;
     private final Long chatId;
-    private final Player player;
+    private Player player;
     private Membership membership;
     private Invitation invitation;
     public UserPlayer(User user, Long chatId){
@@ -40,6 +40,16 @@ public class UserPlayer {
     }
 
     public void setMembership(Membership membership) {
+        this.membership = membership;
+        if (membership == null)
+        {
+            player = null;
+            invitation = null;
+            return;
+        }
+        player = new Player(this.getUserName());
+        membership.getUsers().add(this);
+        membership.getParty().add(player);
         this.membership = membership;
     }
     public Membership getMembership(){
