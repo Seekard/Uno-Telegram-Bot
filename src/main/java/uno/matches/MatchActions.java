@@ -4,10 +4,10 @@ import uno.parties.Player;
 
 public class MatchActions
 {
-    private final MatchModel match;
+    private final Match match;
     private final MoveOrder moveOrder;
 
-    public MatchActions(MatchModel match)
+    public MatchActions(Match match)
     {
         this.match = match;
         moveOrder = match.getMoveOrder();

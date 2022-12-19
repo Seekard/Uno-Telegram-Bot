@@ -2,27 +2,35 @@ package uno.cards;
 
 public class BasicCard
 {
-    protected BasicCardModel model;
-    protected BasicCardView view;
+    protected final String name;
+    protected final int value;
+    protected final Color color;
 
-    public BasicCard(int value, Color color)
+    public BasicCard(String name, int value, Color color)
     {
-        model = new BasicCardModel(value, color);
-        view = new BasicCardView();
+        this.name = name;
+        this.value = value;
+        this.color = color;
     }
+
+    public String getName()
+    {
+        return name;
+    }
+
     public int getValue()
     {
-        return model.getValue();
+        return value;
     }
 
     public Color getColor()
     {
-        return model.getColor();
+        return color;
     }
 
     public boolean equals(BasicCard card)
     {
-        return model.getValue() == card.getValue() && model.getColor() == card.getColor();
+        return getValue() == card.getValue() && getColor() == card.getColor();
     }
 
     @Override
@@ -37,6 +45,6 @@ public class BasicCard
     @Override
     public int hashCode()
     {
-        return model.getColor().ordinal() * 1000 + model.getValue();
+        return getColor().ordinal() * 1000 +getValue();
     }
 }

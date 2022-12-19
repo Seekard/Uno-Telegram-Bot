@@ -1,50 +1,59 @@
 package uno.parties;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Party
 {
-    private final PartyModel model;
-    private final PartyView view;
-
+    private final ArrayList<Player> players = new ArrayList<>();
+    private final ArrayList<Player> inGamePlayers = new ArrayList<>();
+    private final ArrayList<Player> losers = new ArrayList<>();
+    private boolean inGame = false;
     public Party()
     {
-        model = new PartyModel();
-        view = new PartyView();
+
     }
 
     public List<Player> getAllPlayers()
     {
-        return model.getAllPlayers();
+        return Collections.unmodifiableList(players);
     }
-
     public List<Player> getInGamePlayers()
     {
-        return model.getInGamePlayers();
+        return Collections.unmodifiableList(inGamePlayers);
     }
-
     public List<Player> getLosers()
     {
-        return model.getLosers();
+        return Collections.unmodifiableList(losers);
     }
 
     public int getAmountOfPlayers()
     {
-        return model.getAmountOfPlayers();
+        return players.size();
     }
-
+    public int getAmountOfInGamePlayers()
+    {
+        return players.size();
+    }
     public void add(Player player)
     {
-        model.add(player);
+        players.add(player);
+        inGamePlayers.add(player);
     }
 
-    public void remove(Player player) throws Exception
+    public void remove(Player player)
     {
-        model.remove(player);
+        players.remove(player);
+        if (inGamePlayers.contains(player))
+            inGamePlayers.remove(player);
+        if (losers.contains(player))
+            losers.remove(player);
     }
 
     public void surrender(Player player)
     {
-        model.surrender(player);
+        remove(player);
+        losers.add(player);
     }
 }
