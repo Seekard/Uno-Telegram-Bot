@@ -50,14 +50,13 @@ public class InviteMate extends BotCommand {
                 outputMessage = "Я не могу пригласить этого человека";
             } else if (invited.isNotPlaying() && !invited.hasInvitation()) {
                 invited.setInvitation(userPlayer);
-                SingleMessageSender.sendMessage(absSender, invited.getChatId(), this.getCommandIdentifier(), invited.getUserName(),
+                SingleMessageSender.sendMessage(absSender, invited.getChatId(),
                         "Пользователь " + userPlayer.getPlayer() + " приглашает вас в лобби");
                 outputMessage = "Приглащению пользователю " + userNameToInvite + " отправлено, ожидайте";
             } else {
                 outputMessage = "Данный пользователь уже занят";
             }
         }
-        SingleMessageSender.sendMessage(absSender, chat.getId(), this.getCommandIdentifier(), userPlayer.getUserName(),
-                outputMessage);
+        SingleMessageSender.sendMessage(absSender, chat.getId(),outputMessage);
     }
 }

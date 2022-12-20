@@ -17,11 +17,11 @@ public class LeaveMatch extends BotCommand {
     public void execute(AbsSender absSender, User user, Chat chat, String[] params){
         var userPlayer = UserPull.get_or_create(user, chat.getId());
         if (userPlayer.isNotPlaying()) {
-            SingleMessageSender.sendMessage(absSender, chat.getId(), this.getCommandIdentifier(), userPlayer.getUserName(),
+            SingleMessageSender.sendMessage(absSender, chat.getId(),
                     "Кажется вы и так не состоите в лобби");
         }
         else{
-            GroupMessageSender.sendMessage(absSender, this.getCommandIdentifier(), userPlayer.getMembership().getParty(),
+            GroupMessageSender.sendMessage(absSender, userPlayer.getMembership().getParty(),
                     "Игрок " + userPlayer.getUserName() + " покинул лобби");
             userPlayer.leaveMembership();
         }

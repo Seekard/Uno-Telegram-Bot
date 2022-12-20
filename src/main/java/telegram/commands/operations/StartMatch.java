@@ -21,8 +21,7 @@ public class StartMatch extends BotCommand {
 
         var userPlayer = UserPull.get_or_create(user, chat.getId());
         if (userPlayer.isNotPlaying()){
-            SingleMessageSender.sendMessage(absSender, chat.getId(), this.getCommandIdentifier(),
-                    userPlayer.getUserName(),
+            SingleMessageSender.sendMessage(absSender, chat.getId(),
                     "Вы не создали игру"
             );
         }
@@ -31,15 +30,11 @@ public class StartMatch extends BotCommand {
             try {
                 GameProvider gameProvider = new GameProvider(party, 1);
                 userPlayer.getMembership().setProvider(gameProvider);
-                GroupMessageSender.sendMessage(absSender, this.getCommandIdentifier(),
-                        party,
+                GroupMessageSender.sendMessageWithKeyboard(absSender, party,
                         "Игрок: " + userPlayer.getPlayer().getName() + " начал игру"
                 );
             } catch (Exception e) {
-                GroupMessageSender.sendMessage(absSender, this.getCommandIdentifier(),
-                        party,
-                        "создать игру не получилось"
-                );
+                GroupMessageSender.sendMessage(absSender, party,"создать игру не получилось");
                 e.printStackTrace(System.out);
             }
         }

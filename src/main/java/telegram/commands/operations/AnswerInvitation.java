@@ -29,19 +29,17 @@ public class AnswerInvitation extends BotCommand {
             if (this.getCommandIdentifier().equals("accept")) {
 
                 invited.setMembership(invitor.getMembership());
-                GroupMessageSender.sendMessage(absSender, this.getCommandIdentifier(), party,
+                GroupMessageSender.sendMessage(absSender, party,
                         "К вам вступил новый пользователь" + invitedName);
 
             } else if (this.getCommandIdentifier().equals("refuse")) {
-                SingleMessageSender.sendMessage(absSender, invitor.getChatId(), invitor.getUserName(),
-                        this.getCommandIdentifier(),
+                SingleMessageSender.sendMessage(absSender, invitor.getChatId(),
                         "Отказался от приглашения " + invitedName
                 );
             }
         }
         else {
-            SingleMessageSender.sendMessage(absSender, chat.getId(), invited.getUserName(),
-                    this.getCommandIdentifier(),
+            SingleMessageSender.sendMessage(absSender, chat.getId(),
                     "Странно, но у вас нет ни одного приглашения"
             );
         }

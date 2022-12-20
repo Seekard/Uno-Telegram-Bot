@@ -8,7 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import telegram.UserPlayer.UserPlayer;
 import telegram.commands.util.UserPull;
-import telegram.commands.util.fromStickerId2Card;
+import telegram.commands.util.fromCardStringToId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class NonCommand {
 
         SendSticker sendSticker = new SendSticker();
         String messageText = message.getText();
-        String stickerId = fromStickerId2Card.getFromFormatString(messageText);
+        String stickerId = fromCardStringToId.getFromFormatString(messageText);
 
         InputFile stickerFile = new InputFile(stickerId);
         sendSticker.setChatId(this.userPlayer.getChatId().toString());
@@ -60,7 +60,7 @@ public class NonCommand {
         List<KeyboardRow> keyboard = new ArrayList<>();
         var k = 0;
         KeyboardRow keyboardRow = new KeyboardRow();
-        Map<String, String> allTypesOfCards = new TreeMap<String, String>(fromStickerId2Card.data);
+        Map<String, String> allTypesOfCards = new TreeMap<String, String>(fromCardStringToId.data);
 
         for (var card: allTypesOfCards.keySet()){
             keyboardRow.add(card);

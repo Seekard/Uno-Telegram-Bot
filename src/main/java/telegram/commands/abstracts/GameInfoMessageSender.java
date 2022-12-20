@@ -3,6 +3,7 @@ package telegram.commands.abstracts;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import telegram.UserPlayer.Membership;
+import telegram.commands.util.KeyBoardSetter;
 
 public class GameInfoMessageSender
 {
@@ -18,17 +19,15 @@ public class GameInfoMessageSender
             var amountOfCards = player.getAmountOfCards();
             mainInfo.append(player.getName()).append(": ").append(amountOfCards).append('\n');
         }
-        System.out.println("info ahhahaha:" + mainInfo);
         for (var user: users)
         {
-            var message = new StringBuilder(mainInfo);
-            var player = user.getPlayer();
-            message.append("Твои карты:\n");
-            for (var card: player.getCards())
-            {
-                message.append(card.getName()).append('\n');
-            }
-            SingleMessageSender.sendMessage(absSender, user.getChatId(), "", "", message.toString());
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.setText(mainInfo.toString());
+            sendMessage.setChatId(user.getChatId().toString());
+            KeyBoardSetter.setButtonsIn(sendMessage,user );
+            SingleMessageSender.sendMessage(absSender, sendMessage);
         }
     }
+
+
 }

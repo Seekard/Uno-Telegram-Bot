@@ -3,9 +3,6 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import telegram.bot.Bot;
-import uno.GameProvider;
-import uno.parties.Party;
-import uno.parties.Player;
 
 import java.util.HashMap;
 import java.io.*;

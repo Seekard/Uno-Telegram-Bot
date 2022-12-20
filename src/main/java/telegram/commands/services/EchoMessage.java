@@ -17,12 +17,11 @@ public class EchoMessage extends BotCommand {
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         var sender = UserPull.get_or_create(user, chat.getId());
         if (sender.isNotPlaying()) {
-            GroupMessageSender.sendMessage(absSender, this.getCommandIdentifier(), sender.getMembership().getParty(),
+            GroupMessageSender.sendMessage(absSender, sender.getMembership().getParty(),
                     sender.getUserName() + ": " + strings[0]);
         }
         else {
-            SingleMessageSender.sendMessage(absSender, sender.getChatId(), this.getCommandIdentifier(), sender.getUserName(),
-                    "вы не состоите в лобби");
+            SingleMessageSender.sendMessage(absSender, sender.getChatId(),"вы не состоите в лобби");
         }
     }
 }

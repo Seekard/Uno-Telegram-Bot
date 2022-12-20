@@ -1,11 +1,10 @@
 package telegram.commands.util;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Map.entry;
 
-public enum fromStickerId2Card {
+public enum fromCardStringToId {
     Instance;
     private final String stickersPrefix = "CAACAgQAAxkBAAEGz";
     private final Integer prefixLength = stickersPrefix.length();

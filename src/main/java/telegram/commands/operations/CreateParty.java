@@ -23,7 +23,6 @@ public class CreateParty extends BotCommand {
     public void execute(AbsSender absSender, User user, Chat chat, String[] params){
         String outputMessage;
         UserPlayer userPlayer = UserPull.get_or_create(user, chat.getId());
-        String userName = userPlayer.getUserName();
 
         if (userPlayer.isNotPlaying()) {
             Party party = new Party();
@@ -34,8 +33,7 @@ public class CreateParty extends BotCommand {
             outputMessage = this.errorMessage;
         }
 
-        SingleMessageSender.sendMessage(absSender, chat.getId(), this.getCommandIdentifier(), userName,
-         outputMessage);
+        SingleMessageSender.sendMessage(absSender, chat.getId(), outputMessage);
 
     }
 }

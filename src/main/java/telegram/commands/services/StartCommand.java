@@ -18,7 +18,7 @@ public class StartCommand extends BotCommand {
     public void execute(AbsSender absSender, User user, Chat chat, String[] params) {
 
         UserPlayer userPlayer = UserPull.get_or_create(user, chat.getId());
-        SingleMessageSender.sendMessage(absSender, chat.getId(), this.getCommandIdentifier(), userPlayer.getUserName(),
+        SingleMessageSender.sendMessage(absSender, chat.getId(),
                 "Давайте начнём! Если Вам нужна помощь, нажмите /help");
     }
 }
